@@ -1,0 +1,4 @@
+validate-docbr
+streamlit
+phonenumbers
+psycopg2-binary
