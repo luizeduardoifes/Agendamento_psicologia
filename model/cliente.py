@@ -4,6 +4,7 @@ from datetime import date, time
 
 @dataclass
 class Cliente:
+    id: int
     nome: str
     telefone: str
     cpf: str

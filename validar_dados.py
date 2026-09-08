@@ -2,6 +2,7 @@ from validate_docbr import CPF
 import streamlit as st
 from phonenumbers import NumberParseException,parse, is_valid_number
 from model.cliente import Cliente
+from repo.cliente_repo import inserir_agendamento, verificar_agendamento
 
 
 def validar_dados(nome,whatsapp,cpf,data,hora):
@@ -24,13 +25,20 @@ def validar_dados(nome,whatsapp,cpf,data,hora):
     except NumberParseException:
         erro.append("Insira apenas números no telefone e adiciona (DDD) no início")
 
+    conferir_agendamento = verificar_agendamento(data, hora)
+
+    if conferir_agendamento == True:
+        erro.append("Este horário já está agendado, por favor escolha outro horário")
+
     if erro:
         for erros in erro:
             st.error(erros)
         return
 
     else:
-        Cliente(nome = nome, telefone= telefone_valido,cpf= cpf ,data= data, hora= hora)
+        dados = Cliente(id= 0,nome = nome, telefone= telefone_valido,cpf= cpf ,data= data, hora= hora)
+        inserir_agendamento(dados)
+
         st.success("Agendamento, com sucesso")
         
 

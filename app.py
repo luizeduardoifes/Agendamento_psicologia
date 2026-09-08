@@ -1,5 +1,8 @@
 import streamlit as st
+from repo.cliente_repo import criar_tabela_agendamento
 from validar_dados import validar_dados
+
+criar_tabela_agendamento()
 
 horarios = {
     0: ["08:00", "09:00", "10:00"],              # segunda
