@@ -5,7 +5,7 @@ from model.cliente import Cliente
 from repo.cliente_repo import inserir_agendamento, verificar_agendamento
 
 
-def validar_dados(nome,whatsapp,cpf,data,hora):
+def validar_dados(nome,whatsapp,cpf,servico,data,hora):
     erro = []
     cpf_valido = CPF()
     
@@ -35,7 +35,7 @@ def validar_dados(nome,whatsapp,cpf,data,hora):
         return
 
     else:
-        dados = Cliente(id= 0,nome = nome, telefone= telefone_valido,cpf= cpf ,data= data, hora= hora)
+        dados = Cliente(id= 0,nome = nome, telefone= telefone_valido,cpf= cpf ,tipo_servico= servico, data= data, hora= hora)
         inserir_agendamento(dados)
         st.success("Agendamento, com sucesso")
         

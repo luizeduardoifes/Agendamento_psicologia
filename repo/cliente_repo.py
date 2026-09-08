@@ -15,7 +15,7 @@ def inserir_agendamento(dados: Cliente) -> Cliente:
     conn = conectar_banco()
     try:
         cursor = conn.cursor()
-        cursor.execute(INSERT_AGENDAMENTO, (dados.nome, dados.telefone, dados.cpf, dados.data, dados.hora))
+        cursor.execute(INSERT_AGENDAMENTO, (dados.nome, dados.telefone, dados.cpf, dados.tipo_servico, dados.data, dados.hora))
         conn.commit()
     finally:
         conn.close()

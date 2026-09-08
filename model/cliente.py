@@ -8,5 +8,6 @@ class Cliente:
     nome: str
     telefone: str
     cpf: str
+    tipo_servico: str
     data: date
     hora: time

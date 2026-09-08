@@ -13,6 +13,16 @@ horarios = {
     5: ["08:00", "09:00", "10:00"]               # sabado
 }
 
+tipos_de_servico = [
+    "Consulta psicológica",
+    "Terapia de casal",
+    "Atendimento infantil",
+    "Atendimento aos Adulto",
+    "Atendimento aos idosos",
+    "Atendimento online", "atendimento presencial e online",
+    "atendimento aos Adolescente",
+    "neuropsicologia"
+]
 
 st.title("AGENDAMENTO")
 
@@ -22,6 +32,8 @@ nome = st.text_input("Nome completo").capitalize()
 whatsapp = st.text_input("Telefone / Whatsapp", placeholder= "(99) 99999-9999")
 
 cpf = st.text_input("CPF",placeholder="123.456.789-10")
+
+servico = st.selectbox("Escolha o tipo de serviço", tipos_de_servico, index = None, placeholder="Selecione um serviço")
 
 data = st.date_input("Escolha data", format= "DD/MM/YYYY")
 
@@ -50,6 +62,9 @@ if horarios_disponiveis:
         if not cpf:
             erro.append("Erro, preenche o cpf")
 
+        if not servico:
+            erro.append("Erro, preenche o tipo de serviço")
+
         if not hora:
             erro.append("Erro, preenche o horário")
 
@@ -57,7 +72,7 @@ if horarios_disponiveis:
             for erros in erro:
                 st.error(erros)
         else:
-            validar_dados(nome,whatsapp,cpf,data,hora)
+            validar_dados(nome,whatsapp,cpf,servico,data,hora)
 
 
 
