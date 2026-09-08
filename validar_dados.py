@@ -25,10 +25,9 @@ def validar_dados(nome,whatsapp,cpf,data,hora):
     except NumberParseException:
         erro.append("Insira apenas números no telefone e adiciona (DDD) no início")
 
-    conferir_agendamento = verificar_agendamento(data, hora)
-
-    if conferir_agendamento == True:
-        erro.append("Este horário já está agendado, por favor escolha outro horário")
+    verificar = verificar_agendamento(data, hora)
+    if verificar == True:
+        erro.append("Este horário já está agendado, escolha outro horário")
 
     if erro:
         for erros in erro:
@@ -38,7 +37,6 @@ def validar_dados(nome,whatsapp,cpf,data,hora):
     else:
         dados = Cliente(id= 0,nome = nome, telefone= telefone_valido,cpf= cpf ,data= data, hora= hora)
         inserir_agendamento(dados)
-
         st.success("Agendamento, com sucesso")
         
 
