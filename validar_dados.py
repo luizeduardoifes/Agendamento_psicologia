@@ -34,16 +34,6 @@ def validar_dados(nome,whatsapp,cpf,servico,data,hora):
             st.error(erros)
         return
 
-    else:
-        dados = Cliente(id= 0,nome = nome, telefone= telefone_valido,cpf= cpf ,tipo_servico= servico, data= data, hora= hora)
-        inserir_agendamento(dados)
-        st.success("Agendamento, com sucesso")
-        
-
-    
-
-    
-
-            
-
-    
+    dados = Cliente(id= 0,nome = nome, telefone= telefone_valido,cpf= cpf ,tipo_servico= servico, data= data, hora= hora)
+    inserir_agendamento(dados)
+    st.success("Agendamento, com sucesso")
