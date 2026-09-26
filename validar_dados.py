@@ -1,39 +1,47 @@
-from validate_docbr import CPF
 import streamlit as st
 from phonenumbers import NumberParseException,parse, is_valid_number
+from hash import hash_password
 from model.cliente import Cliente
-from repo.cliente_repo import inserir_agendamento, verificar_agendamento
+from email_validator import validate_email, EmailNotValidError
+from repo.cliente_repo import inserir_cliente, verificar_cliente_existente
 
+def validar_dados(nome,whatsapp,email, senha, confirmar_senha):
+    cliente_existente = verificar_cliente_existente(whatsapp, email)
+    if cliente_existente:
+        st.error("Email ou telefone já cadastrado")
 
-def validar_dados(nome,whatsapp,cpf,servico,data,hora):
-    erro = []
-    cpf_valido = CPF()
-    
-    if not cpf_valido.validate(cpf):
-        erro.append("CPF inválido")
+    else:
+        erro = []
 
-    try:
-        validacao = parse(whatsapp, "BR")
-        telefone_valido = is_valid_number(validacao)
+        try:
+            email_valido = validate_email(email, check_deliverability=False)
+            email_verificado = email_valido.normalized
 
-        if telefone_valido:
-            pass
+        except EmailNotValidError:
+            erro.append("Email inválido")
 
-        else:
+        try:
+            telefone = parse(whatsapp, "BR")
+            telefone_valido = is_valid_number(telefone)
+
+            if telefone_valido:
+                pass
+
+            else:
+                erro.append("Número de telefone inválido")
+
+        except NumberParseException:
             erro.append("Número de telefone inválido")
 
-    except NumberParseException:
-        erro.append("Insira apenas números no telefone e adiciona (DDD) no início")
+        if senha != confirmar_senha:
+            erro.append("As senhas não coincidem")
 
-    verificar = verificar_agendamento(data, hora)
-    if verificar == True:
-        erro.append("Este horário já está agendado, escolha outro horário")
+        if erro:
+            for erros in erro:
+                st.error(erros)
+            return
 
-    if erro:
-        for erros in erro:
-            st.error(erros)
-        return
-
-    dados = Cliente(id= 0,nome = nome, telefone= telefone_valido,cpf= cpf ,tipo_servico= servico, data= data, hora= hora)
-    inserir_agendamento(dados)
-    st.success("Agendamento, com sucesso")
+        senha_hash = hash_password(senha)
+        dados = Cliente(id= 0,nome = nome, telefone= telefone_valido,email= email_verificado, senha= senha_hash)
+        inserir_cliente(dados)
+        st.success("Cadastro realizado com sucesso")
