@@ -89,8 +89,28 @@ st.markdown("""
     display: none;
 }
 
+.voltar button {
+    background-color: #1F0F0B;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 18px;
+}
+
+.voltar button:hover {
+    background-color: #321914;
+}
+
 </style>
 """, unsafe_allow_html=True)
+
+
+st.markdown('<div class="voltar">', unsafe_allow_html=True)
+
+if st.button("← Voltar"):
+    st.switch_page("menu.py")
+
+st.markdown('</div>', unsafe_allow_html=True)
 
 col1, col2, col3 = st.columns(3)
 
