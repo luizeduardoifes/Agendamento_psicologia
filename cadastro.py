@@ -84,10 +84,6 @@ st.markdown("""
     color: white !important;
 }
 
-/* Esconder sidebar */
-[data-testid="stSidebarCollapsedControl"] {
-    display: none;
-}
 
 .voltar button {
     background-color: #1F0F0B;

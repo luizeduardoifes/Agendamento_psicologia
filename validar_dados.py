@@ -42,6 +42,6 @@ def validar_dados(nome,whatsapp,email, senha, confirmar_senha):
             return
 
         senha_hash = hash_password(senha)
-        dados = Cliente(id= 0,nome = nome, telefone= telefone_valido,email= email_verificado, senha= senha_hash)
+        dados = Cliente(id= 0,nome = nome, telefone= whatsapp,email= email_verificado, senha= senha_hash)
         inserir_cliente(dados)
         st.success("Cadastro realizado com sucesso")

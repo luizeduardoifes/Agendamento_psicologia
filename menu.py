@@ -59,4 +59,4 @@ if cadastro:
     st.switch_page("cadastro.py")
 
 if agendamento:
-    pass
+    st.switch_page("login.py")

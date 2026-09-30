@@ -15,3 +15,6 @@ INSERT INTO cliente (nome, telefone, email, senha) VALUES (%s, %s, %s, %s);
 VERIFICAR_CLIENTE_EXISTENTE = """
 SELECT * FROM cliente WHERE email = %s OR telefone = %s;
 """
+VERIFICAR_LOGIN_CLIENTE = """
+SELECT senha FROM cliente WHERE nome = %s;
+"""

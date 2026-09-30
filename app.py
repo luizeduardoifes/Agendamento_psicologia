@@ -11,7 +11,9 @@ st.set_page_config(
 
 paginas = [
     st.Page("menu.py", title="Início"),
-    st.Page("cadastro.py", title="Cadastro")
+    st.Page("cadastro.py", title="Cadastro"),
+    st.Page("login.py", title="Login"),
+    st.Page("agendamento.py", title="Agendamento")
 ]
 
 pagina = st.navigation(

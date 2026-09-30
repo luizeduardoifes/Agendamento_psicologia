@@ -1,5 +1,7 @@
 import streamlit as st
 
+from repo.agenda_repo import verificar_agendamento_existente
+
 
 st.set_page_config(
     page_title="Agendamento",
@@ -79,7 +81,7 @@ horarios_do_dia = horarios.get(dia_semana, [])
 horarios_disponiveis = [] 
  
 for horario in horarios_do_dia: 
-    if not verificar_agendamento(data, horario): 
+    if not verificar_agendamento_existente(usuario_id=st.session_state.usuario_id, data=data, horario=horario): 
         horarios_disponiveis.append(horario) 
  
 if horarios_disponiveis: 

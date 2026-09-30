@@ -30,3 +30,12 @@ def verificar_cliente_existente(telefone: str, email: str) -> bool:
     finally:
         conn.close()
 
+def verificar_login_cliente(nome):
+    conn = conectar_banco()
+    try:
+        cursor = conn.cursor()
+        cursor.execute(VERIFICAR_LOGIN_CLIENTE, (nome,))
+        resultado = cursor.fetchone()
+        return resultado
+    finally:
+        conn.close()
