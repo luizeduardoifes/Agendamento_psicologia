@@ -39,3 +39,27 @@ def verificar_login_cliente(nome):
         return resultado
     finally:
         conn.close()
+
+def pegar_id_cliente(nome):
+    conn = conectar_banco()
+    try:
+        cursor = conn.cursor()
+        cursor.execute(PEGAR_ID_CLIENTE, (nome,))
+        resultado = cursor.fetchone()
+        return resultado[0] if resultado else None
+    finally:
+        conn.close()
+
+def pegar_nome_cliente_e_email(usuario_id):
+    conn = conectar_banco()
+    try:
+        cursor = conn.cursor()
+        cursor.execute(PEGAR_NOME_CLIENTE_E_EMAIL, (usuario_id,))
+        resultado = cursor.fetchone()
+        if resultado:
+            nome, email = resultado
+            return nome, email
+        else:
+            return None, None
+    finally:
+        conn.close()

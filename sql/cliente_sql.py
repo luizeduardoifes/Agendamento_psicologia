@@ -18,3 +18,11 @@ SELECT * FROM cliente WHERE email = %s OR telefone = %s;
 VERIFICAR_LOGIN_CLIENTE = """
 SELECT senha FROM cliente WHERE nome = %s;
 """
+
+PEGAR_ID_CLIENTE = """
+SELECT id FROM cliente WHERE nome = %s;
+"""
+
+PEGAR_NOME_CLIENTE_E_EMAIL = """
+SELECT nome, email FROM cliente WHERE id = %s;
+"""

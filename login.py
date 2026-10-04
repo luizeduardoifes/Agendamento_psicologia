@@ -1,5 +1,6 @@
+import time
 from hash import check_password
-from repo.cliente_repo import verificar_login_cliente
+from repo.cliente_repo import pegar_id_cliente, verificar_login_cliente
 import streamlit as st
 
 st.markdown("""
@@ -69,6 +70,10 @@ if botao:
         hash_banco = verificar_login_cliente(nome)
         if hash_banco:
             if check_password(senha, hash_banco[0]):
+                st.session_state.usuario_id = pegar_id_cliente(nome)
                 st.success("Login realizado com sucesso!")
+                time.sleep(3)
+                st.switch_page("Agendamento.py")
+
             else:
                 st.error("Senha incorreta!")

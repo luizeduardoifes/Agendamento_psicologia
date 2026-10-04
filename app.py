@@ -1,7 +1,9 @@
 import streamlit as st
+from repo.agenda_repo import criar_tabela_agendamento
 from repo.cliente_repo import criar_tabela_cliente
 
 criar_tabela_cliente()
+criar_tabela_agendamento()
 
 st.set_page_config(
     page_title="Agendamento",

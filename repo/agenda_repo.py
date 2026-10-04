@@ -3,7 +3,7 @@ from model.agendas import Agenda
 from sql.agenda_sql import *
 from datetime import date, time
 
-def criar_tabela_cliente():
+def criar_tabela_agendamento():
     conn = conectar_banco()
     try:
         cursor = conn.cursor()
