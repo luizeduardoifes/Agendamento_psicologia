@@ -2,7 +2,8 @@ import psycopg2
 import streamlit as st
 from email_automatico import enviar_email
 from id_usuario_logado import usuario_logado
-from repo.agenda_repo import verificar_agendamento_existente
+from model.agendas import Agenda
+from repo.agenda_repo import inserir_agendamento, verificar_agendamento_existente
 from repo.cliente_repo import pegar_nome_cliente_e_email
 
 st.set_page_config(
@@ -42,6 +43,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 booleano, id_usuario = usuario_logado()
+nome_cliente, email_cliente = pegar_nome_cliente_e_email(id_usuario)
 
 try:
     if not booleano:
@@ -110,7 +112,7 @@ horarios_do_dia = horarios.get(dia_semana, [])
 horarios_disponiveis = [] 
  
 for horario in horarios_do_dia: 
-    if not verificar_agendamento_existente(usuario_id=usuario_logado(), data=data, horario=horario): 
+    if not verificar_agendamento_existente(usuario_id= id_usuario, nome=nome_cliente,data=data, horario=horario, servico=servico): 
         horarios_disponiveis.append(horario) 
 
 if horarios_disponiveis: 
@@ -141,7 +143,8 @@ if horarios_disponiveis:
 
         else:
             st.success(f"Agendamento feito,irá receber um e-mail de confirmação com os detalhes do agendamento.")
-            nome_cliente, email_cliente = pegar_nome_cliente_e_email(id_usuario)
+            dados = Agenda(usuario_id=id_usuario,nome=nome_cliente,data=data,horario=hora,servico=servico)
+            inserir_agendamento(dados=dados)
             enviar_email(nome_cliente, email_cliente, data, hora, servico)
     
 else:

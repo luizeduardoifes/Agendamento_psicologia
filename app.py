@@ -15,7 +15,8 @@ paginas = [
     st.Page("menu.py", title="Início"),
     st.Page("cadastro.py", title="Cadastro"),
     st.Page("login.py", title="Login"),
-    st.Page("agendamento.py", title="Agendamento")
+    st.Page("agendamento.py", title="Agendamento"),
+    st.Page("consultar_agendamento.py", title="Consultas")
 ]
 
 pagina = st.navigation(
